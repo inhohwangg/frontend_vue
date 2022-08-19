@@ -40,6 +40,22 @@ app.get('/api/login', (req,res)=> {
     }
 })
 
+app.get('/api/test3', (req,res)=> {
+    try {
+        res.status(200).json({result:true,석일:"개발자"})
+    }catch(error) {
+        console.log(error)
+    }
+})
+
+app.get('/api/test4', (req,res)=> {
+    try {
+        res.status(200).json({result:true,석일2:"개발자2"})
+    }catch (error) {
+
+    }
+})
+
 app.get('/api/test', (req,res)=> {
     res.send({inho:1,inho2:2,inho3:3})
 })
