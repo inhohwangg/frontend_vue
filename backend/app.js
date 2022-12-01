@@ -11,6 +11,7 @@ connect();
 
 // 라우터 불러오기
 const postRouter = require("./router/post");
+const userRouter = require("./router/user");
 
 // 미들웨어
 app.use(helmet());
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // 라우터 연결하기
-app.use("/api", [postRouter]);
+app.use("/api", [postRouter, userRouter]);
 
 app.get("/test", (req, res) => {
   res.json({ result: true });
