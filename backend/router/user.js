@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../schema/user");
 
+// 로그인 기능
 router.post("/signUp", async (req, res) => {
   try {
     const { userId, password } = req.body;

@@ -16,7 +16,7 @@ const userRouter = require("./router/user");
 // 미들웨어
 app.use(helmet());
 app.use(bodyParser());
-app.use(morgan("dev"));
+app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 

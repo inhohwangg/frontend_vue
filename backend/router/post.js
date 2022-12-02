@@ -8,6 +8,8 @@ router.post("/postCreate", async (req, res) => {
   try {
     const { postTitle, postContent, category } = req.body;
     const createAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
+    const add = await Post.find(null, { _id: true, postNum: false });
+    console.log(add);
     const results = await Post.create({
       postTitle,
       postContent,
@@ -17,6 +19,38 @@ router.post("/postCreate", async (req, res) => {
     res.status(201).json({ result: true, results });
   } catch (error) {
     console.log(error, "postCreate Api error");
+    res.status(400).json({ result: false });
+  }
+});
+
+// 게시글 수정
+router.put("/postPut", async (req, res) => {
+  try {
+    const { _id } = req.query;
+    const { postTitle, postContent, category } = req.body;
+    const results = await Post.updateOne(
+      { $set: { _id } },
+      {
+        postTitle,
+        postContent,
+        category,
+      }
+    ).exec();
+    res.status(200).json({ result: true, results });
+  } catch (error) {
+    console.error(error, "/postPut api error");
+    res.status(400).json({ result: false });
+  }
+});
+
+// 게시글 삭제
+router.delete("/postDelete", async (req, res) => {
+  try {
+    const { _id } = req.query;
+    const results = await Post.deleteOne({ $set: { _id } }).exec();
+    res.status(200).json({ result: "게시글 삭제 완료", results });
+  } catch (error) {
+    console.error(error, "postDelete Api Error");
     res.status(400).json({ result: false });
   }
 });
