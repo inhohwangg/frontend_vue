@@ -12,13 +12,13 @@ module.exports = (req, res, next) => {
     return;
   }
   try {
-    const { userId } = jwt.verify(authToken, process.env.TOKEN);
-    User.findByPk(userId).then((user) => {
+    const { userId } = jwt.verify(authToken, process.env.ACCESS_TOKEN);
+    User.findById(userId).then((user) => {
       res.locals.user = user;
       next();
     });
   } catch (error) {
     console.error(error, "authMiddleware Error");
-    res.status(401).json({ result: "토큰이 유효하지 않습니다." });
+    res.status(401).json({ result: "토큰이 유효하지 않습니다.", error });
   }
 };

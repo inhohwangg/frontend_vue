@@ -12,18 +12,20 @@ connect();
 // 라우터 불러오기
 const postRouter = require("./router/post");
 const userRouter = require("./router/user");
+const commentRouter = require("./router/comment");
 
 // 미들웨어
 app.use(helmet());
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // 라우터 연결하기
-app.use("/api", [postRouter, userRouter]);
+app.use("/api", [postRouter, userRouter, commentRouter]);
 
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ result: true });
 });
 

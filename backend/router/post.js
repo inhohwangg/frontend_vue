@@ -2,19 +2,27 @@ const express = require("express");
 const router = express.Router();
 const dayjs = require("dayjs");
 const Post = require("../schema/post");
+const auth = require("../middleware/authMiddleware");
 
 // 게시글 생성
-router.post("/postCreate", async (req, res) => {
+router.post("/postCreate", auth, async (req, res) => {
   try {
+    const { userId } = req.query;
     const { postTitle, postContent, category } = req.body;
     const createAt = dayjs().format("YYYY-MM-DD HH:mm:ss");
-    const add = await Post.find(null, { _id: true, postNum: false });
-    console.log(add);
+    const add = await Post.find(null, { _id: true, postNum: true });
+    let postNum = 0;
+    for (let i = 0; i < add.length; i++) {
+      if (add[i].postNum === undefined) postNum = 1;
+      else postNum += 1;
+    }
     const results = await Post.create({
+      userId,
       postTitle,
       postContent,
       category,
       createAt,
+      postNum,
     });
     res.status(201).json({ result: true, results });
   } catch (error) {
