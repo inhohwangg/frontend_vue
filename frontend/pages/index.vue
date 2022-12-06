@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <div>
       <div>로그인</div>
       <div>
@@ -7,6 +7,9 @@
       </div>
       <div>
         <input type="password" />
+        <button @click="$store.commit('increment')">
+          {{ $store.state.counter }}
+        </button>
       </div>
     </div>
   </div>
@@ -17,4 +20,15 @@ export default {};
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+.header {
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  padding-bottom: 8px;
+  position: sticky;
+  top: 0;
+}
 </style>
