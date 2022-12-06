@@ -1,12 +1,17 @@
 import Vuex from "vuex";
+import axios from "axios";
 
 const store = () =>
   new Vuex.Store({
     state: {
       counter: 0,
       list: [],
+      testData: "",
     },
     mutations: {
+      setMore(state, data) {
+        state.testData = data;
+      },
       increment(state) {
         state.counter++;
       },
@@ -21,6 +26,16 @@ const store = () =>
       },
       toggle(state, todo) {
         todo.done = !todo.done;
+      },
+    },
+    actions: {
+      getData(store) {
+        axios
+          .get("http://localhost:8000/api/postRead")
+          .then((data) => {
+            console.info(data.data);
+          })
+          .catch((err) => console.error(err));
       },
     },
   });
