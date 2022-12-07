@@ -13,6 +13,7 @@ connect();
 const postRouter = require("./router/post");
 const userRouter = require("./router/user");
 const commentRouter = require("./router/comment");
+const likeRouter = require("./router/like");
 
 // 미들웨어
 app.use(helmet());
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // 라우터 연결하기
-app.use("/api", [postRouter, userRouter, commentRouter]);
+app.use("/api", [postRouter, userRouter, commentRouter, likeRouter]);
 
 app.get("/", (req, res) => {
   res.json({ result: true });
