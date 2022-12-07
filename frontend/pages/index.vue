@@ -24,19 +24,23 @@
         </form>
       </div>
       <div class="button-part">
-        <a
-          class="btn btn-primary"
-          type="submit"
-          v-on:submit.prevent="submitForm"
-          @click="$store.commit('testData')"
-          >로그인</a
+        <button class="btn" @click="login"><span>로그인</span></button>
+      </div>
+      <div class="button-part">
+        <button
+          style="width: 85px; top: 30px; border-radius: 5px; right: 5px"
+          class="btn2"
+          @click="go"
         >
+          <span>회원가입</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -46,6 +50,29 @@ export default {
   },
   mounted() {
     console.info(this.$store);
+  },
+  computed: {
+    baseurl() {
+      return this.$store.state.baseurl;
+    },
+  },
+  methods: {
+    go() {
+      this.$router.go(1);
+    },
+    login() {
+      let data = {
+        userId: this.userId,
+        password: this.password,
+      };
+      axios
+        .post(`${this.baseurl}/api/login`, data)
+        .then((data) => {
+          this.go();
+          console.info("로그인 성공", data.data);
+        })
+        .catch((err) => console.info(err));
+    },
   },
 };
 </script>
@@ -109,5 +136,85 @@ body {
   height: 3vh;
   top: 230px;
   margin: auto;
+}
+.btn {
+  border: none;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #222;
+  padding: 10px 10px 10px 10px;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 140%;
+  width: 110%;
+  background: #78c7d2;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btn:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+.btn2 {
+  border: none;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: #222;
+  padding: 10px 10px 10px 10px;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.btn2 span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn2:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 140%;
+  width: 90%;
+  background: #78c7d2;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+
+.btn2:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 </style>
