@@ -4,8 +4,9 @@ const port = 8000;
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-
+const cors = require("cors");
 // MongoDB 연결하기
+app.use(cors());
 const connect = require("./schema");
 connect();
 
