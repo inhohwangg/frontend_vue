@@ -7,6 +7,7 @@ const store = () =>
       counter: 0,
       list: [],
       testData: "",
+      baseurl: "http://localhost:8000",
     },
     mutations: {
       setMore(state, data) {
